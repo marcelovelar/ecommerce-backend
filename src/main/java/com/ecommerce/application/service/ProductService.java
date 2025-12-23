@@ -43,4 +43,35 @@ public class ProductService {
                 .map(productMapper::toDTO)
                 .collect(Collectors.toList());
     }
+
+    @Transactional(readOnly = true)
+    public ProductDTO getProductById(Long id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+        return productMapper.toDTO(product);
+    }
+
+    @Transactional
+    public ProductDTO updateProduct(Long id, CreateProductDTO dto) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+
+        Category category = null;
+        if (dto.getCategoryId() != null) {
+            category = categoryRepository.findById(dto.getCategoryId())
+                    .orElseThrow(() -> new RuntimeException("Category not found"));
+        }
+
+        productMapper.updateEntity(product, dto, category);
+        Product savedProduct = productRepository.save(product);
+        return productMapper.toDTO(savedProduct);
+    }
+
+    @Transactional
+    public void deleteProduct(Long id) {
+        if (!productRepository.findById(id).isPresent()) {
+            throw new RuntimeException("Product not found");
+        }
+        productRepository.deleteById(id);
+    }
 }

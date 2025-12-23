@@ -32,4 +32,12 @@ public class ProductMapper {
         }
         return dto;
     }
+
+    public void updateEntity(Product product, CreateProductDTO dto, Category category) {
+        product.setName(dto.getName());
+        product.setDescription(dto.getDescription());
+        product.setPrice(dto.getPrice());
+        product.setStock(dto.getStock());
+        product.setCategory(category);
+    }
 }

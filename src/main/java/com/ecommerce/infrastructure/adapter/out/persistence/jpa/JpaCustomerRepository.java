@@ -1,4 +1,4 @@
-package com.ecommerce.domain.crud;
+package com.ecommerce.infrastructure.adapter.out.persistence.jpa;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -32,4 +32,21 @@ public class ProductController {
     public ResponseEntity<List<ProductDTO>> getAllProducts() {
         return ResponseEntity.ok(productService.getAllProducts());
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductDTO> getProductById(@org.springframework.web.bind.annotation.PathVariable Long id) {
+        return ResponseEntity.ok(productService.getProductById(id));
+    }
+
+    @org.springframework.web.bind.annotation.PutMapping("/{id}")
+    public ResponseEntity<ProductDTO> updateProduct(@org.springframework.web.bind.annotation.PathVariable Long id,
+            @RequestBody CreateProductDTO dto) {
+        return ResponseEntity.ok(productService.updateProduct(id, dto));
+    }
+
+    @org.springframework.web.bind.annotation.DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteProduct(@org.springframework.web.bind.annotation.PathVariable Long id) {
+        productService.deleteProduct(id);
+        return ResponseEntity.noContent().build();
+    }
 }
