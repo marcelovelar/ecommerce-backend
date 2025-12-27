@@ -10,6 +10,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import java.util.Set;
 
 @Entity
 @Table(name = "customers")
@@ -27,4 +28,10 @@ public class Customer extends BaseEntity {
     private String firstName;
     private String lastName;
     private String email;
+
+    private String password;
+
+    @jakarta.persistence.ManyToMany(fetch = jakarta.persistence.FetchType.EAGER)
+    @jakarta.persistence.JoinTable(name = "customer_roles", joinColumns = @jakarta.persistence.JoinColumn(name = "customer_id"), inverseJoinColumns = @jakarta.persistence.JoinColumn(name = "role_id"))
+    private Set<UserRole> roles;
 }
