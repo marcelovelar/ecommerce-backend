@@ -1,5 +1,7 @@
 package com.ecommerce.domain.model;
 
+import com.ecommerce.infrastructure.listener.AuditListener;
+
 import java.math.BigDecimal;
 
 import jakarta.persistence.Entity;
@@ -23,6 +25,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
+@jakarta.persistence.EntityListeners(AuditListener.class)
 public class Product extends BaseEntity {
 
     @Id

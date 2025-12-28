@@ -1,0 +1,130 @@
+
+create table categories (
+  id bigint primary key generated always as identity,
+  name text not null,
+  description text
+);
+
+create table products (
+  id bigint primary key generated always as identity,
+  name text not null,
+  description text,
+  price numeric(10, 2) not null,
+  category_id bigint references categories (id)
+);
+
+create table customers (
+  id bigint primary key generated always as identity,
+  first_name text not null,
+  last_name text not null,
+  email text not null unique,
+  phone text
+);
+
+create table orders (
+  id bigint primary key generated always as identity,
+  customer_id bigint references customers (id),
+  order_date timestamp with time zone default now(),
+  status text not null
+);
+
+create table order_items (
+  id bigint primary key generated always as identity,
+  order_id bigint references orders (id),
+  product_id bigint references products (id),
+  quantity int not null,
+  price numeric(10, 2) not null
+);
+
+create table warehouses (
+  id bigint primary key generated always as identity,
+  name text not null,
+  location text
+);
+
+create table inventory (
+  id bigint primary key generated always as identity,
+  product_id bigint references products (id),
+  quantity int not null,
+  warehouse_id bigint references warehouses (id)
+);
+
+create table user_roles (
+  id bigint primary key generated always as identity,
+  role_name text not null unique
+);
+
+create table permissions (
+  id bigint primary key generated always as identity,
+  role_id bigint references user_roles (id),
+  permission_name text not null
+);
+
+create table payment_methods (
+  id bigint primary key generated always as identity,
+  method_name text not null unique
+);
+
+create table payments (
+  id bigint primary key generated always as identity,
+  order_id bigint references orders (id),
+  amount numeric(10, 2) not null,
+  payment_date timestamp with time zone default now(),
+  payment_method_id bigint references payment_methods (id)
+);
+
+create table shipping_methods (
+  id bigint primary key generated always as identity,
+  method_name text not null unique,
+  cost numeric(10, 2) not null
+);
+
+create table delivery_status (
+  id bigint primary key generated always as identity,
+  order_id bigint references orders (id),
+  status text not null,
+  updated_at timestamp with time zone default now()
+);
+
+create table reviews (
+  id bigint primary key generated always as identity,
+  product_id bigint references products (id),
+  customer_id bigint references customers (id),
+  rating int not null check (
+    rating >= 1
+    and rating <= 5
+  ),
+  comment text,
+  review_date timestamp with time zone default now()
+);
+
+create table discounts (
+  id bigint primary key generated always as identity,
+  code text not null unique,
+  discount_percentage numeric(5, 2) not null,
+  valid_from timestamp with time zone,
+  valid_to timestamp with time zone
+);
+
+create table audit_logs (
+  id bigint primary key generated always as identity,
+  table_name text not null,
+  operation text not null,
+  changed_data jsonb,
+  change_date timestamp with time zone default now()
+);
+
+create table sales_reports (
+  id bigint primary key generated always as identity,
+  report_date timestamp with time zone default now(),
+  total_sales numeric(10, 2) not null,
+  total_orders int not null
+);
+
+create table support_tickets (
+  id bigint primary key generated always as identity,
+  customer_id bigint references customers (id),
+  issue text not null,
+  status text not null,
+  created_at timestamp with time zone default now(),
+  updated_at timestamp with time zone
