@@ -24,4 +24,14 @@ public class OrderController {
     public ResponseEntity<OrderDTO> createOrder(@RequestBody CreateOrderDTO dto) {
         return new ResponseEntity<>(orderService.createOrder(dto), HttpStatus.CREATED);
     }
+
+    @org.springframework.web.bind.annotation.GetMapping
+    public ResponseEntity<java.util.List<OrderDTO>> getAllOrders() {
+        return ResponseEntity.ok(orderService.getAllOrders());
+    }
+
+    @org.springframework.web.bind.annotation.GetMapping("/{id}")
+    public ResponseEntity<OrderDTO> getOrderById(@org.springframework.web.bind.annotation.PathVariable Long id) {
+        return ResponseEntity.ok(orderService.getOrderById(id));
+    }
 }

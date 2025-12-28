@@ -4,9 +4,11 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import com.ecommerce.domain.enums.OrderStatus;
+import com.ecommerce.infrastructure.listener.AuditListener;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
@@ -30,6 +32,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
+@EntityListeners(AuditListener.class)
 public class Order extends BaseEntity {
 
     @Id
