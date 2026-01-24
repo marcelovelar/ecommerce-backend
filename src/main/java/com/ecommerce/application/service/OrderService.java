@@ -2,21 +2,17 @@ package com.ecommerce.application.service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
+import com.ecommerce.application.dto.*;
+import com.ecommerce.domain.model.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ecommerce.application.dto.CreateOrderDTO;
-import com.ecommerce.application.dto.CreateOrderItemDTO;
-import com.ecommerce.application.dto.OrderDTO;
 import com.ecommerce.application.exception.InsufficientStockException;
 import com.ecommerce.application.exception.OrderNotFoundException;
 import com.ecommerce.application.mapper.OrderMapper;
 import com.ecommerce.domain.enums.OrderStatus;
-import com.ecommerce.domain.model.Customer;
-import com.ecommerce.domain.model.Order;
-import com.ecommerce.domain.model.OrderItem;
-import com.ecommerce.domain.model.Product;
 import com.ecommerce.domain.repository.CustomerRepository;
 import com.ecommerce.domain.repository.OrderRepository;
 import com.ecommerce.domain.repository.ProductRepository;
@@ -80,9 +76,11 @@ public class OrderService {
         return orderMapper.toDTO(order);
     }
 
-    public java.util.List<OrderDTO> getAllOrders() {
+    public List<OrderDTO> getAllOrders() {
         return orderRepository.findAll().stream()
                 .map(orderMapper::toDTO)
                 .collect(java.util.stream.Collectors.toList());
     }
+
 }
+

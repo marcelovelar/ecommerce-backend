@@ -2,12 +2,10 @@ package com.ecommerce.infrastructure.adapter.in;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.ecommerce.application.dto.CreateOrderDTO;
+import com.ecommerce.application.dto.CreateProductDTO;
 import com.ecommerce.application.dto.OrderDTO;
 import com.ecommerce.application.service.OrderService;
 
@@ -25,13 +23,19 @@ public class OrderController {
         return new ResponseEntity<>(orderService.createOrder(dto), HttpStatus.CREATED);
     }
 
-    @org.springframework.web.bind.annotation.GetMapping
+    @GetMapping
     public ResponseEntity<java.util.List<OrderDTO>> getAllOrders() {
         return ResponseEntity.ok(orderService.getAllOrders());
     }
 
-    @org.springframework.web.bind.annotation.GetMapping("/{id}")
-    public ResponseEntity<OrderDTO> getOrderById(@org.springframework.web.bind.annotation.PathVariable Long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<OrderDTO> getOrderById(@PathVariable Long id) {
         return ResponseEntity.ok(orderService.getOrderById(id));
     }
+
+    // @PutMapping("/{id}")
+    // public ResponseEntity<OrderDTO> updateOrder(@PathVariable Long id,
+    //         @RequestBody CreateOrderDTO dto) {
+    //     return ResponseEntity.ok(orderService.updateOrder(id, dto));
+    // }
 }
