@@ -19,11 +19,11 @@ import lombok.Setter;
 public abstract class BaseEntity {
 
     @CreatedDate
-    @Column(name = "created_at", nullable = false, updatable = false)
+    @Column(name = "created_at", nullable = true, updatable = true)
     private LocalDateTime createdAt;
 
     @org.springframework.data.annotation.CreatedBy
-    @Column(name = "created_by", updatable = false)
+    @Column(name = "created_by", updatable = true)
     private String createdBy;
 
     @LastModifiedDate
