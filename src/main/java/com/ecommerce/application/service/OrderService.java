@@ -82,5 +82,9 @@ public class OrderService {
                 .collect(java.util.stream.Collectors.toList());
     }
 
-}
+    @Transactional
+    public OrderDTO updateOrder(Long id, CreateOrderDTO dto) {
+        throw new UnsupportedOperationException("Order update is not yet implemented");
+    }
 
+}
