@@ -12,7 +12,7 @@ import com.ecommerce.application.service.OrderService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/orders")
+@RequestMapping("/api/v1/orders")
 @RequiredArgsConstructor
 public class OrderController {
 
@@ -35,7 +35,7 @@ public class OrderController {
 
     // @PutMapping("/{id}")
     // public ResponseEntity<OrderDTO> updateOrder(@PathVariable Long id,
-    //         @RequestBody CreateOrderDTO dto) {
-    //     return ResponseEntity.ok(orderService.updateOrder(id, dto));
+    // @RequestBody CreateOrderDTO dto) {
+    // return ResponseEntity.ok(orderService.updateOrder(id, dto));
     // }
 }
