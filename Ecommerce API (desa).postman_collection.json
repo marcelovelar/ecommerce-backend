@@ -1,0 +1,204 @@
+{
+  "info": {
+    "_postman_id": "441cd4e5-9252-4628-9199-c5bfd2aebbbf",
+    "name": "Ecommerce API (desa)",
+    "description": "Collection for Ecommerce Backend API featuring Product and Order management.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "28963175",
+    "_collection_link": "https://go.postman.co/collection/28963175-441cd4e5-9252-4628-9199-c5bfd2aebbbf?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "Create Product",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Gaming Mouse\",\n    \"description\": \"Mouse\",\n    \"price\": 49.99,\n    \"stock\": 50,\n    \"categoryId\": 1\n}"
+            },
+            "url": {
+              "raw": "{{baseURL}}/{{apiVersion}}/products",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "{{apiVersion}}",
+                "products"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Products",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/{{apiVersion}}/products",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "{{apiVersion}}",
+                "products"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Orders",
+      "item": [
+        {
+          "name": "Create Order",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"customerId\": 1,\n    \"items\": [\n        {\n            \"productId\": 1,\n            \"quantity\": 2\n        },\n        {\n            \"productId\": 2,\n            \"quantity\": 1\n        }\n    ]\n}"
+            },
+            "url": {
+              "raw": "{{baseURL}}/{{apiVersion}}/orders",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "{{apiVersion}}",
+                "orders"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"firstName\": \"John\",\r\n  \"lastName\": \"Doe\",\r\n  \"email\": \"john.doe@example.com\",\r\n  \"password\": \"secretpassword\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseURL}}/{{apiVersion}}/auth/register",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "{{apiVersion}}",
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"john.doe@example.com\",\r\n  \"password\": \"secretpassword\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseURL}}/{{apiVersion}}/auth/login",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "{{apiVersion}}",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseURL",
+      "value": ""
+    },
+    {
+      "key": "apiVersion",
+      "value": ""
+    },
+    {
+      "key": "jwt",
+      "value": "",
+      "type": "default"
+    }
+  ]
+}
