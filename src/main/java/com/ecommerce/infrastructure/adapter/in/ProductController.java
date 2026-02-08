@@ -3,6 +3,7 @@ package com.ecommerce.infrastructure.adapter.in;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -53,8 +54,24 @@ public class ProductController {
     @GetMapping("/params")
     public ResponseEntity<Page<ProductDTO>> getProducts(
             @RequestParam(required = false) String q,
+            @RequestParam(required = false) String sortPrice,
             @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable
-        ) {
+    ) {
+
+        // Si viene sortPrice, construimos un nuevo Pageable
+        if (sortPrice != null) {
+            Sort.Direction direction = sortPrice.equalsIgnoreCase("asc")
+                    ? Sort.Direction.ASC
+                    : Sort.Direction.DESC;
+
+            pageable = PageRequest.of(
+                    pageable.getPageNumber(),
+                    pageable.getPageSize(),
+                    Sort.by(direction, "price")
+            );
+        }
+
         return ResponseEntity.ok(productService.getProducts(q, pageable));
     }
+
 }
