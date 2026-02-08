@@ -10,4 +10,8 @@ public interface CustomerRepository {
     Optional<Customer> findById(Long id);
 
     Optional<Customer> findByEmail(String email);
+
+    java.util.List<Customer> findAll();
+
+    void deleteById(Long id);
 }

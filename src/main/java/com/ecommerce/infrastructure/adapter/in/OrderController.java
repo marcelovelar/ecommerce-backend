@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.ecommerce.application.dto.CreateOrderDTO;
-import com.ecommerce.application.dto.CreateProductDTO;
 import com.ecommerce.application.dto.OrderDTO;
 import com.ecommerce.application.service.OrderService;
 

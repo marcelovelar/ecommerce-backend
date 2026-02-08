@@ -3,6 +3,8 @@ package com.ecommerce.infrastructure.adapter.out.persistence;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import com.ecommerce.domain.model.Product;
@@ -33,6 +35,11 @@ public class ProductPersistenceAdapter implements ProductRepository {
     }
 
     @Override
+    public Page<Product> findAll(Pageable pageable) {
+        return productJpaRepository.findAll(pageable);
+    }
+
+    @Override
     public List<Product> findByCategoryId(Long categoryId) {
         return productJpaRepository.findByCategoryId(categoryId);
     }
@@ -40,5 +47,10 @@ public class ProductPersistenceAdapter implements ProductRepository {
     @Override
     public void deleteById(Long id) {
         productJpaRepository.deleteById(id);
+    }
+
+    @Override
+    public Page<Product> findByNameContainingIgnoreCase(String name, Pageable pageable) {
+        return productJpaRepository.findByNameContainingIgnoreCase(name, pageable);
     }
 }

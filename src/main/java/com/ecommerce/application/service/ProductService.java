@@ -3,6 +3,8 @@ package com.ecommerce.application.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,6 +45,21 @@ public class ProductService {
                 .map(productMapper::toDTO)
                 .collect(Collectors.toList());
     }
+
+    @Transactional(readOnly = true)
+    public Page<ProductDTO> getProducts(String q, Pageable pageable) {
+
+        Page<Product> page;
+
+        if (q == null || q.trim().isEmpty()) {
+            page = productRepository.findAll(pageable);
+        } else {
+            page = productRepository.findByNameContainingIgnoreCase(q.trim(), pageable);
+        }
+
+        return page.map(productMapper::toDTO);
+    }
+
 
     @Transactional(readOnly = true)
     public ProductDTO getProductById(Long id) {
